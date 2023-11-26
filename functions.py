@@ -96,8 +96,9 @@ def scrape_announcement() -> dict:
         # Download the image and save it in the directory
         image_content = requests.get(urljoin(url, announcement_image_url)).content
         image_path =f"{images_directory}announcement_{index}.jpg"
-        with open(image_path, 'wb') as img_file:
-            img_file.write(image_content)
+        if not os.path.exists(image_path):
+            with open(image_path, 'wb') as img_file:
+                img_file.write(image_content)
 
         # Store the announcement details along with the image path
         announcements_dict[index] = {
