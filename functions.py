@@ -171,19 +171,22 @@ def resize_images(directory, width, height):
             
             # Save the resized image, overwriting the original file
             resized_img.save(filepath)
+
 def display_subfolder_links(folder_links):
     # Path to the image file
     columns = st.columns(3, gap="large")  # Creating three columns
 
     for index, (folder_name, folder_link) in enumerate(folder_links.items()):
         with columns[index % 3]: 
-            if folder_name[-1] == ' ':
+            if folder_name.endswith(' '):
                 folder_name = folder_name[:-1]
-            image_path = f'media//subject_logos//{folder_name}.png'
+            image_name = f"{folder_name}.png"
+            image_path = os.path.join("media", "subject_logos", image_name)
             st.markdown(f"<b>Subject : </b> {folder_name}", unsafe_allow_html=True)
-            #st.image(image_path, width=350, caption="", use_column_width=False)  # Displaying the image
+            st.image(image_path, width=350, caption="", use_column_width=False)  # Displaying the image
             st.markdown(f"📁 [Visit Folder]({folder_link})")  # Displaying the link
             st.markdown("---")
+
 
 def get_subfolder_links(client_secret_file, api_name, api_version, scopes, folder_id):
     # Create the service
