@@ -3,7 +3,7 @@ from streamlit_extras.switch_page_button import switch_page
 from functions import *
 from streamlit_extras.stylable_container import stylable_container
 st.set_page_config(page_title='ISIMM Study Hub',
-                   page_icon='media\isimm logo\isimm logo.jpg', layout='wide')
+                   page_icon='media/isimm logo/isimm logo.jpg', layout='wide')
 hide_streamlit_style = """
             <style>
             
@@ -13,7 +13,7 @@ hide_streamlit_style = """
 #!To hide hamburger menu add " #MainMenu {visibility: hidden;} " to the <style>
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 img, bg = st.columns([0.2, 0.8], gap="large")
-img.image("media\isimm logo\isimm logo _ 20.png", width=270)
+img.image("media/isimm logo\isimm logo _ 20.png", width=270)
 bg.image("media\\banner.jpeg", use_column_width=True)
 st.markdown("----")
 #quote_column,announcement_column=st.columns(2)
