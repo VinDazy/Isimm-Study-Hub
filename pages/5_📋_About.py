@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
-st.set_page_config(page_title='ISIMM Study Hub',page_icon='media\isimm logo\isimm logo.jpg',layout='wide')
+st.set_page_config(page_title='ISIMM Study Hub',page_icon='media/isimm logo/isimm logo.jpg',layout='wide')
 hide_streamlit_style = """
             <style>
             #MainMenu {visibility: hidden;}
@@ -10,8 +10,8 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 img,bg=st.columns([0.2,0.8],gap="large")
 
-img.image("media\isimm logo\isimm logo _ 20.png", width=270)
-bg.image("media\\banner.jpeg", use_column_width=True)
+img.image("media/isimm logo/isimm logo _ 20.png", width=270)
+bg.image("media/banner.jpeg", use_column_width=True)
 st.markdown("---")
 st.header("Introduction 🌐")
 st.write("""Welcome to ISIMM Study Hub, an unofficial platform dedicated to providing essential information for Computer Science students at Higher Institue of Informatics and Mathematics.

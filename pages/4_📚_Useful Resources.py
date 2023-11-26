@@ -3,7 +3,7 @@ import pandas as pd
 import json
 import csv 
 from streamlit_extras.switch_page_button import switch_page
-st.set_page_config(page_title='ISIMM Study Hub',page_icon='media\isimm logo\isimm logo.jpg',layout='wide')
+st.set_page_config(page_title='ISIMM Study Hub',page_icon='media/isimm logo/isimm logo.jpg',layout='wide')
 hide_streamlit_style = """
             <style>
             #MainMenu {visibility: hidden;}
@@ -13,10 +13,10 @@ hide_streamlit_style = """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 img,bg=st.columns([0.2,0.8],gap="large")
 
-img.image("media\isimm logo\isimm logo _ 20.png", width=270)
-bg.image("media\\banner.jpeg", use_column_width=True)
+img.image("media/isimm logo/isimm logo _ 20.png", width=270)
+bg.image("media/banner.jpeg", use_column_width=True)
 semester_1,semester_2=st.columns(2)
-with open('credits\creds_sem_1.json', 'r') as file:
+with open('credits/creds_sem_1.json', 'r') as file:
     data = json.load(file)
 formatted_data = []
 for unit_data in data:
@@ -46,7 +46,7 @@ st.write(df.to_markdown(index=False), unsafe_allow_html=True)
 st.write(" ")
 st.markdown("---")
 st.header("Semester 2 classes")
-with open('credits\creds_sem_2.json', 'r') as file:
+with open('credits/creds_sem_2.json', 'r') as file:
     data = json.load(file)
 formatted_data = []
 for unit_data in data:
@@ -103,7 +103,7 @@ def read_csv_to_dict(csv_file):
 
 
 # Example usage:
-file_path = 'resources\\teachersEmails.csv'  
+file_path = 'resources/teachersEmails.csv'  
 teachers_data = read_csv_to_dict(file_path)
 
 df = pd.DataFrame(teachers_data)

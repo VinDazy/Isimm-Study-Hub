@@ -13,8 +13,8 @@ hide_streamlit_style = """
 #!To hide hamburger menu add " #MainMenu {visibility: hidden;} " to the <style>
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 img, bg = st.columns([0.2, 0.8], gap="large")
-img.image("media/isimm logo\isimm logo _ 20.png", width=270)
-bg.image("media\\banner.jpeg", use_column_width=True)
+img.image("media/isimm logo/isimm logo _ 20.png", width=270)
+bg.image("media/banner.jpeg", use_column_width=True)
 st.markdown("----")
 #quote_column,announcement_column=st.columns(2)
 st.subheader("🔔 Quote of the day 🔔 ")
@@ -64,21 +64,21 @@ subjectResources, schedule, subject_info = st.columns(3)
 
 # Container for Subject Resources
 with subjectResources:
-    st.image("media\menu\info.png")
+    st.image("media/menu/info.png")
     resources_button = st.button("Check Course Materials",use_container_width=True)
     if resources_button:
         switch_page("subjects")
 
 # Container for Schedule
 with schedule:
-    st.image("media\menu\sched.png")
+    st.image("media/menu/sched.png")
     schedule_button = st.button("Check Time Table",use_container_width=True)
     if schedule_button:
         switch_page("time tables")
 
 # Container for Subject Information
 with subject_info:
-    st.image("media\menu\\resources.png")
+    st.image("media/menu/resources.png")
     subject_info_button = st.button("Check useful information", use_container_width=True)
     if subject_info_button:
         switch_page("useful resources")
