@@ -39,9 +39,7 @@ st.markdown("Linkedin 🤵: [Linkedin Profile ](https://www.linkedin.com/in/khal
 st.markdown("Github 👨‍💻: [GitHub Repository ](https://github.com/VinDazy)")
 st.markdown("---")
 st.header("Acknowledgment 🙏")
-st.write("""
-I extend my gratitude to  Khalil Ouali for the inspiration and originality of the idea.
-""")
+st.markdown("I extend my gratitude to [Khalil Ouali](https://www.linkedin.com/in/ouali-khalil) for the inspiration and originality of the idea.")
 st.markdown("---")
 col1,col2,col3,col4,col5=st.columns(5)
 return_home=col3.button("🏠Return Home")

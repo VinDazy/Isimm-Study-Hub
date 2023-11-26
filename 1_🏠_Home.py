@@ -64,8 +64,9 @@ for i in range(num_rows):
         key="container_with_border",
         css_styles="""
             {
-                border: 3px solid rgba(49, 51, 67, 0.8);
+                border: 3px solid rgba(49, 51, 63, 1);
                 border-radius: 0.9rem;
+
                 padding: calc(1em - 1px)
             }
             """,
@@ -75,7 +76,7 @@ for i in range(num_rows):
                 st.image(announcement['announcement_image'], width=200, use_column_width=False)
                 st.markdown(f"[Visit Announcement]({announcement['announcement_link']}) 📢")
 
-        #print ("path (from looping in home ): "+announcement['announcement_image'])
+
 
 
 st.markdown("---")
