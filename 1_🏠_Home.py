@@ -38,27 +38,31 @@ with quote_container:
         )
 st.markdown("----")
 st.subheader("📢 Announcements 📢")
-announcements_per_row = 3
 
-# Initialize HTML content for the grid
-html_content = '<div style="display: flex; flex-wrap: wrap;">'
+# Number of announcements per row
+announcements_per_row = 4
+num_announcements = len(announcements_dict)
+num_rows = -(-num_announcements // announcements_per_row)  # Ceiling division to determine rows
 
-# Iterate through announcements and generate HTML content for each announcement
-for announcement in announcements_dict.values():
-    styled_container = (
-        '<div style="border: 1px solid rgba(49, 51, 63, 0.9); border-radius: 0.5rem; padding: 1em; margin: 0.5em;">'
-        f'<b>Title:</b> {announcement["announcement_title"]}<br>'
-        f'<b>Date:</b> {announcement["announcement_date"]}<br>'
-        f'<img src="{announcement["announcement_image"]}" alt="Announcement Image" style="width: 200px; height: 150px;"><br>'
-        f'<b></b> <a href="{announcement["announcement_link"]}">Visit Anouncement</a> 📢<br>'
-        '</div>'
-    )
-    html_content += styled_container
+for i in range(num_rows):
+    columns = st.columns(announcements_per_row)
+    start = i * announcements_per_row
+    end = min((i + 1) * announcements_per_row, num_announcements)
+    
+    for j, announcement_idx in enumerate(range(start, end)):
+        announcement = announcements_dict[announcement_idx]
+        with columns[j]:
+            st.markdown(
+                f"<div style='border: 1px solid rgba(49, 51, 63, 0.9); border-radius: 0.5rem; padding: 1em; margin: 0.5em;'>"
+                f"<b>Title:</b> {announcement['announcement_title']}<br>"
+                f"<b>Date:</b> {announcement['announcement_date']}<br>"
+                f"<img src='{announcement['announcement_image']}' alt='Announcement Image' style='width: 200px; height: 150px;'><br>"
+                f"<b></b> <a href='{announcement['announcement_link']}'>Visit Announcement</a> 📢<br>"
+                "</div>",
+                unsafe_allow_html=True
+            )
 
-# Close the grid layout HTML
-html_content += '</div>'
 
-st.markdown(html_content, unsafe_allow_html=True)
 st.markdown("---")
 subjectResources, schedule, subject_info = st.columns(3)
 
