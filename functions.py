@@ -179,7 +179,7 @@ def display_subfolder_links(folder_links):
         with columns[index % 3]: 
             if folder_name[-1] == ' ':
                 folder_name = folder_name[:-1]
-            image_path = f'media/subject_logos/{folder_name}.png'
+            image_path = f'media//subject_logos//{folder_name}.png'
             st.markdown(f"<b>Subject : </b> {folder_name}", unsafe_allow_html=True)
             st.image(image_path, width=350, caption="", use_column_width=False)  # Displaying the image
             st.markdown(f"📁 [Visit Folder]({folder_link})")  # Displaying the link
