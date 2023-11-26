@@ -103,7 +103,7 @@ def read_csv_to_dict(csv_file):
 
 
 # Example usage:
-file_path = 'resources\\timeTables\\teachersEmails.csv'  
+file_path = 'resources\\teachersEmails.csv'  
 teachers_data = read_csv_to_dict(file_path)
 
 df = pd.DataFrame(teachers_data)
