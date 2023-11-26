@@ -10,7 +10,8 @@ from googleapiclient.discovery import build
 from google.auth.transport.requests import Request
 import datetime
 import streamlit as st
-
+from PIL import Image
+from io import BytesIO
 
 
 
@@ -72,24 +73,34 @@ def scrape_quote():
         }
         index_counter += 1
     return data[quote_index]
-def scrape_announcement()->dict:
-    url = 'http://www.isimm.rnu.tn/public/'
+def scrape_announcement() -> dict:
+    base_url = 'http://www.isimm.rnu.tn'
+    url = f'{base_url}/public/'
     html_text = requests.get(url=url).text
     soup = BeautifulSoup(html_text, 'lxml')
     announcements = soup.find_all('div', class_='actu grid_2 insa-lyon click')
-    announcements_dict={}
-    index=0
-    for announcement in announcements:
-        announcement_image = announcement.find('img', id="img_post")['src']
+    announcements_dict = {}
+
+    for index, announcement in enumerate(announcements):
+        announcement_image_url = announcement.find('img', id="img_post")['src']
         announcement_date = announcement.find('span', class_='date').text
         announcement_title = announcement.find('h4').find('a').text.strip()
         announcement_link = announcement.find('h4').find('a')['href']
-        announcements_dict[index] = {}
-        announcements_dict[index]['announcement_image']=announcement_image
-        announcements_dict[index]['announcement_date']=announcement_date
-        announcements_dict[index]['announcement_title']=announcement_title
-        announcements_dict[index]['announcement_link']=announcement_link
-        index += 1
+
+        # Download image and convert to base64
+        image_response = requests.get(f'{base_url}{announcement_image_url}')
+        image = Image.open(BytesIO(image_response.content))
+        buffered = BytesIO()
+        image.save(buffered, format="JPEG")
+        announcement_image_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
+
+        announcements_dict[index] = {
+            'announcement_image': f"data:image/jpeg;base64,{announcement_image_base64}",
+            'announcement_date': announcement_date,
+            'announcement_title': announcement_title,
+            'announcement_link': announcement_link
+        }
+
     return announcements_dict
 
 
