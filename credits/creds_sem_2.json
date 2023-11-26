@@ -1,0 +1,102 @@
+[
+    {
+        "Unit": "Bases de donnees",
+        "Coefficient(Total)": 2,
+        "Credit(Total)": 4,
+        "Subjects": [
+            {
+                "Subject": "Administration des bases de donnees",
+                "Coefficient": 1,
+                "Credit": 2
+            },
+            {
+                "Subject": "Entrepots de donnees",
+                "Coefficient": 1,
+                "Credit": 2
+            }
+        ]
+    },
+    {
+        "Unit": "Compilations & tests",
+        "Coefficient(Total)": 2.5,
+        "Credit(Total)": 5,
+        "Subjects": [
+            {
+                "Subject": "Tests de logiciel (Certification ISTQB)",
+                "Coefficient": 1,
+                "Credit": 2
+            },
+            {
+                "Subject": "Technique de compilation",
+                "Coefficient": 1.5,
+                "Credit": 3
+            }
+        ]
+    },
+    {
+        "Unit": "Indexation et Web",
+        "Coefficient(Total)": 2.5,
+        "Credit(Total)": 5,
+        "Subjects": [
+            {
+                "Subject": "Technologie et programmation web",
+                "Coefficient": 1.5,
+                "Credit": 3
+            },
+            {
+                "Subject": "Technique d'indexation",
+                "Coefficient": 1,
+                "Credit": 2
+            }
+        ]
+    },
+    {
+        "Unit": "Intelligence artificielle",
+        "Coefficient(Total)": 2,
+        "Credit(Total)": 4,
+        "Subjects": [
+            {
+                "Subject": "Fondements de l'intelligence artificielle (programmation IA)",
+                "Coefficient": 2,
+                "Credit": 4
+            }
+        ]
+    },
+    {
+        "Unit": "Langue et ethique",
+        "Coefficient(Total)": 3,
+        "Credit(Total)": 6,
+        "Subjects": [            {
+            "Subject": "Projet federe (methode Agile)",
+            "Coefficient": 1,
+            "Credit": 2
+        },
+        {
+            "Subject": "Anglais 5",
+            "Coefficient": 1,
+            "Credit": 2
+        },
+        {
+            "Subject": "Droit d'informatique, protection des donnees et ethique",
+            "Coefficient": 1,
+            "Credit": 2
+        }
+    ]
+    },
+    {
+        "Unit": "Unite Optionnelle",
+        "Coefficient(Total)": 3,
+        "Credit(Total)": 6,
+        "Subjects": [        {
+            "Subject": "Business Intelligence and Data Analytics",
+            "Coefficient": 1.5,
+            "Credit": 3
+        },
+        {
+            "Subject": "Digital Business Transformation",
+            "Coefficient": 1.5,
+            "Credit": 3
+        }
+    ]
+    }
+]

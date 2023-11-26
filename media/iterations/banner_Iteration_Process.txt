@@ -1,0 +1,4 @@
+- design canva
+- crop canva
+- enhance quality 
+- remove watermark 

@@ -1,0 +1,99 @@
+[
+    {
+        "Unit": "CPOO",
+        "Coefficient(Total)": 3.5,
+        "Credit(Total)": 7.0,
+        "Subjects": [
+            {
+                "Subject": "Conception des systemes d'information",
+                "Coefficient": 1.5,
+                "Credit": 3.0
+            },
+            {
+                "Subject": "Programmation Java",
+                "Coefficient": 2.0,
+                "Credit": 4.0
+            }
+        ]
+    },
+    {
+        "Unit": "Base de donnees et reseaux",
+        "Coefficient(Total)": 2.5,
+        "Credit(Total)": 5.0,
+        "Subjects": [
+            {
+                "Subject": "Ingenieurie des bases de donnees",
+                "Coefficient": 1.5,
+                "Credit": 3.0
+            },
+            {
+                "Subject": "Services des reseaux",
+                "Coefficient": 1.0,
+                "Credit": 2.0
+            }
+        ]
+    },
+    {
+        "Unit": "Autoates et optimisation",
+        "Coefficient(Total)": 2.0,
+        "Credit(Total)": 4.0,
+        "Subjects": [
+            {
+                "Subject": "Graphe et optimisation",
+                "Coefficient": 1.0,
+                "Credit": 2.0
+            },
+            {
+                "Subject": "Theorie des langages des Automates",
+                "Coefficient": 1.0,
+                "Credit": 2.0
+            }
+        ]
+    },
+    {
+        "Unit": "Probabilite",
+        "Coefficient(Total)": 2.0,
+        "Credit(Total)": 4.0,
+        "Subjects": [
+            {
+                "Subject": "Probabilite et statistique",
+                "Coefficient": 2.0,
+                "Credit": 4.0
+            }
+        ]
+    },
+    {
+        "Unit": "Langue et culture",
+        "Coefficient(Total)": 2.0,
+        "Credit(Total)": 4.0,
+        "Subjects": [
+            {
+                "Subject": "Gestion d'entreprise",
+                "Coefficient": 1.0,
+                "Credit": 2.0
+            },
+            {
+                "Subject": "Anglais 3",
+                "Coefficient": 1.0,
+                "Credit": 2.0
+            }
+        ]
+    },
+    {
+        "Unit": "Unitie Optionnelle",
+        "Coefficient(Total)": 3.0,
+        "Credit(Total)": 6.0,
+        "Subjects": [
+            {
+                "Subject": "Entreprise System",
+                "Coefficient": 1.5,
+                "Credit": 3.0
+            },
+            {
+                "Subject": "System Modeling & Simulation",
+                "Coefficient": 1.5,
+                "Credit": 3.0
+            }
+        ]
+    }
+]
