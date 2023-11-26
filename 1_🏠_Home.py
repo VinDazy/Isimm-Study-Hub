@@ -42,7 +42,7 @@ st.subheader("📢 Announcements 📢")
 # Number of announcements per row
 announcements_per_row = 4
 num_announcements = len(announcements_dict)
-num_rows = -(-num_announcements // announcements_per_row)  # Ceiling division to determine rows
+num_rows = -(-num_announcements // announcements_per_row)
 
 for i in range(num_rows):
     columns = st.columns(announcements_per_row)
