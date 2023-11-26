@@ -1,2 +1,4 @@
 download\test.py
 __pycache__
+.streamlit\secrets.toml
+download\__pycache__
