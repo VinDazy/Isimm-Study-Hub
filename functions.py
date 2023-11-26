@@ -10,8 +10,7 @@ from googleapiclient.discovery import build
 from google.auth.transport.requests import Request
 import datetime
 import streamlit as st
-from PIL import Image
-from io import BytesIO
+from urllib.parse import urljoin
 
 
 
@@ -74,32 +73,41 @@ def scrape_quote():
         index_counter += 1
     return data[quote_index]
 def scrape_announcement() -> dict:
-    base_url = 'http://www.isimm.rnu.tn'
-    url = f'{base_url}/public/'
+    url = 'http://www.isimm.rnu.tn/public/'
     html_text = requests.get(url=url).text
     soup = BeautifulSoup(html_text, 'lxml')
     announcements = soup.find_all('div', class_='actu grid_2 insa-lyon click')
+    
     announcements_dict = {}
+    index = 0
+    images_directory = 'media/announcement_pictures'
+    if not images_directory.endswith("/"):
+        images_directory += "/"
 
-    for index, announcement in enumerate(announcements):
+    if not os.path.exists(images_directory):
+        os.makedirs(images_directory)
+
+    for announcement in announcements:
         announcement_image_url = announcement.find('img', id="img_post")['src']
         announcement_date = announcement.find('span', class_='date').text
         announcement_title = announcement.find('h4').find('a').text.strip()
         announcement_link = announcement.find('h4').find('a')['href']
 
-        # Download image and convert to base64
-        image_response = requests.get(f'{base_url}{announcement_image_url}')
-        image = Image.open(BytesIO(image_response.content))
-        buffered = BytesIO()
-        image.save(buffered, format="JPEG")
-        announcement_image_base64 = base64.b64encode(buffered.getvalue()).decode("utf-8")
+        # Download the image and save it in the directory
+        image_content = requests.get(urljoin(url, announcement_image_url)).content
+        image_path =f"{images_directory}announcement_{index}.jpg"
+        with open(image_path, 'wb') as img_file:
+            img_file.write(image_content)
 
+        # Store the announcement details along with the image path
         announcements_dict[index] = {
-            'announcement_image': f"data:image/jpeg;base64,{announcement_image_base64}",
+            'announcement_image': image_path,
             'announcement_date': announcement_date,
             'announcement_title': announcement_title,
             'announcement_link': announcement_link
         }
+        index += 1
+        print("PAth(from function) : "+image_path)
 
     return announcements_dict
 
