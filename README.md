@@ -21,7 +21,7 @@ This Streamlit Web Application serves as a study hub for ISIMM computer science 
 
 | Home | Subjects | Resources |
 |------|----------|-----------|
-| ![Home Screenshot](media\screenshots\home.png) | ![Resources Screenshot](media\screenshots\subjects.png) | ![ Subjects Screenshot](media\screenshots\resources.png) |
+| ![Home Screenshot](media/screenshots/home.png) | ![Resources Screenshot](media/screenshots/subjects.png) | ![ Subjects Screenshot](media/screenshots/resources.png) |
 
 
 ## Required Packages 📦
