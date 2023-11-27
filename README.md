@@ -15,6 +15,7 @@ This Streamlit Web Application serves as a study hub for ISIMM computer science 
 - Check timetables for different classes.
 - searching for teachers' contact information.
 - Explore subjects coefficients and credits.
+- Announcements related to your studies, projects and maybe even a scholarship opportunity ;)
 
 
 ## Screenshots 📸

@@ -27,6 +27,7 @@ At ISIMM Study Hub, you can find:
 \n- Timetables for various courses and semesters.
 \n- Contact information for professors and teaching staff.
 \n- Details about different subjects, including course descriptions and resources.
+\n- Announcements related to your studies, projects and maybe even a scholarship opportunity ;).
 """)
 st.write("---")
 st.header("Creator 🚀")
