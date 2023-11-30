@@ -40,4 +40,4 @@ try:
     if return_home:
         switch_page("home")
 except Exception as e:
-    st.write("An error occured,",e)
+    st.write("An error occured,"+e)
