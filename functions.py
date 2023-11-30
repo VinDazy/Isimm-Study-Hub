@@ -108,7 +108,7 @@ def scrape_announcement() -> dict:
             'announcement_link': announcement_link
         }
         index += 1
-        print("PAth(from function) : "+image_path)
+        #print("PAth(from function) : "+image_path)
 
     return announcements_dict
 
