@@ -22,19 +22,22 @@ API_NAME='drive'
 API_VERSION='v3'
 SCOPES=['https://www.googleapis.com/auth/drive']
 FOLDER_ID="1DFwSgOYhRCXzfbgCTAnT3g_UMMCFqPml"
-@st.cache_data
-def get_sub_folderLinks():
-    return get_subfolder_links(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES, FOLDER_ID)
+try:
+    @st.cache_data
+    def get_sub_folderLinks():
+        return get_subfolder_links(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES, FOLDER_ID)
 
 
-folder_links_dict = get_sub_folderLinks()
+    folder_links_dict = get_sub_folderLinks()
 
-st.markdown("---")
+    st.markdown("---")
 
 
-display_subfolder_links(folder_links_dict)
+    display_subfolder_links(folder_links_dict)
 
-col1,col2,col3,col4,col5=st.columns(5)
-return_home=col3.button("🏠Return Home")
-if return_home:
-    switch_page("home")
+    col1,col2,col3,col4,col5=st.columns(5)
+    return_home=col3.button("🏠Return Home")
+    if return_home:
+        switch_page("home")
+except Exception as e:
+    st.write("An error occured,",e)
