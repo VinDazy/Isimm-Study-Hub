@@ -16,8 +16,8 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 img, bg = st.columns([0.2, 0.8], gap="large")
 img.image("media/isimm logo/isimm logo _ 20.png", width=270)
 bg.image("media/banner.jpeg", use_column_width=True)   
-#CLIENT_SECRET_FILE='.streamlit/credentials.json'
-CLIENT_SECRET_FILE=json.loads(st.secrets["client_secrets_file"])
+CLIENT_SECRET_FILE='.streamlit/credentials.json'
+#CLIENT_SECRET_FILE=json.loads(st.secrets["client_secrets_file"])
 API_NAME='drive'
 API_VERSION='v3'
 SCOPES=['https://www.googleapis.com/auth/drive']
