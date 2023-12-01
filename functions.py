@@ -231,3 +231,121 @@ def get_subfolder_links(client_secret_file, api_name, api_version, scopes, folde
         folder_links[folder_name] = folder_link
     
     return folder_links
+def get_subfiles_link(client_secret_file, api_name, api_version, scopes, folder_id):
+    # Create the service
+    service = Create_Service(client_secret_file, api_name, api_version, scopes)
+    
+    query = f"parents = '{folder_id}'"
+    response = service.files().list(q=query).execute()
+    folders = response.get('files')
+    
+    # Dictionary to store folder names and their links along with file links
+    folder_links = {}
+    
+    # Loop through each folder and obtain its link
+    for folder in folders:
+        folder_id = folder['id']
+        folder_name = folder['name']
+        
+        # Generate a link for the folder
+        folder_link = f"https://drive.google.com/drive/folders/{folder_id}"
+        
+        # Retrieve files within the folder
+        files_query = f"'{folder_id}' in parents"
+        files_response = service.files().list(q=files_query).execute()
+        files = files_response.get('files')
+        
+        # List to store file names and their links within the subfolder
+        file_links = []
+        
+        # Loop through each file and obtain its link
+        for file in files:
+            file_id = file['id']
+            file_name = file['name']
+            
+            # Generate a link for the file
+            file_link = f"https://drive.google.com/file/d/{file_id}/view"
+            
+            # Add file name and link to the file_links list
+            file_links.append((file_name, file_link))
+        
+        # Add folder name, folder link, and file links to the dictionary
+        folder_links[folder_name] = {'folder_link': folder_link, 'file_links': file_links}
+    
+    return folder_links
+
+def display_files_links(data_dict):
+    for folder_name, links in data_dict.items():
+        expander = st.expander(f"Files in '{folder_name}'")
+        expander.write(f"Folder Link: {links['folder_link']}")
+        
+        with expander:
+            for file_name, file_link in links['file_links']:
+                st.write(f"- [{file_name}]({file_link})")
+def get_subfiles_link(client_secret_file, api_name, api_version, scopes, folder_id):
+    # Create the service
+    service = Create_Service(client_secret_file, api_name, api_version, scopes)
+    
+    query = f"parents = '{folder_id}'"
+    response = service.files().list(q=query).execute()
+    folders = response.get('files')
+    
+    # Dictionary to store folder names and their links along with file links
+    folder_links = {}
+    
+    # Loop through each folder and obtain its link
+    for folder in folders:
+        folder_id = folder['id']
+        folder_name = folder['name']
+        
+        # Generate a link for the folder
+        folder_link = f"https://drive.google.com/drive/folders/{folder_id}"
+        
+        # Retrieve files within the folder
+        files_query = f"'{folder_id}' in parents"
+        files_response = service.files().list(q=files_query).execute()
+        files = files_response.get('files')
+        
+        # List to store file names and their links within the subfolder
+        file_links = []
+        
+        # Loop through each file and obtain its link
+        for file in files:
+            file_id = file['id']
+            file_name = file['name']
+            
+            # Generate a link for the file
+            file_link = f"https://drive.google.com/file/d/{file_id}/view"
+            
+            # Add file name and link to the file_links list
+            file_links.append((file_name, file_link))
+        
+        # Add folder name, folder link, and file links to the dictionary
+        folder_links[folder_name] = {'folder_link': folder_link, 'file_links': file_links}
+    
+    return folder_links
+
+def display_files_links(data_dict):
+    num_columns = 3
+    folder_count = len(data_dict)
+    rows = (folder_count + num_columns - 1) // num_columns  # Calculate number of rows needed
+
+    for row in range(rows):
+        columns = st.columns(num_columns)  # Create columns for each row
+
+        for col in range(num_columns):
+            folder_index = row * num_columns + col
+            if folder_index < folder_count:
+                folder_name, links = list(data_dict.items())[folder_index]
+                if folder_name.endswith(' '):
+                    folder_name = folder_name[:-1]
+                image_name = f"{folder_name}.png"
+                image_path = os.path.join("media", "subject_logos", image_name)  # Retrieve image path
+                with columns[col]:
+                    st.image(image_path, width=175, use_column_width=True)
+                    expander = st.expander(f"{folder_name}")
+                    expander.write(f"Folder Link: {links['folder_link']}")
+                    
+                    with expander:
+                        for file_name, file_link in links['file_links']:
+                            st.write(f"- [{file_name}]({file_link})")
