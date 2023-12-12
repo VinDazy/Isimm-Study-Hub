@@ -1,4 +1,4 @@
 secrets.toml
 __pycache__
 test 
-client_secrets_file.json
+credentials.json
