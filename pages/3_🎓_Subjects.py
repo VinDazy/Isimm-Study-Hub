@@ -27,9 +27,12 @@ FOLDER_ID="1DFwSgOYhRCXzfbgCTAnT3g_UMMCFqPml"
 def get_files_links():
     return get_subfiles_link(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES, FOLDER_ID)
 
+with st.sidebar:
+    semester=st.selectbox(label="Chose a Semester" ,options=["Semester 1","Semester 2"])
 
 folder_links_dict = get_files_links()
-display_files_links(folder_links_dict)
+if semester=="Semester 1":
+    display_files_links(folder_links_dict)
 
 st.markdown("---")
 
