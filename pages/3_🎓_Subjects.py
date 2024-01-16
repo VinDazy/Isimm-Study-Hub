@@ -22,17 +22,26 @@ API_NAME='drive'
 API_VERSION='v3'
 SCOPES=['https://www.googleapis.com/auth/drive']
 #OLD_FOLDER_ID="1DFwSgOYhRCXzfbgCTAnT3g_UMMCFqPml"
-FOLDER_ID="1S6ezxU7F2bPP-wIvpFpn0sQOTZHx8pxC"
+FOLDER_ID_S1="1S6ezxU7F2bPP-wIvpFpn0sQOTZHx8pxC"
+FOLDER_ID_S2="1pAeirUeTlMT-xSe6MpY0oZAuF22CReX8"
+
 @st.cache_data
-def get_files_links():
-    return get_subfiles_link(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES, FOLDER_ID)
+def get_files_links_s1():
+    return get_subfiles_link(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES, FOLDER_ID_S1)
+
+@st.cache_data
+def get_files_links_s2():
+    return get_subfiles_link(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES, FOLDER_ID_S2)
 
 with st.sidebar:
-    semester=st.selectbox(label="Chose a Semester" ,options=["Semester 1","Semester 2"])
+    semester=st.selectbox(label="Chose a Semester" ,options=["Semester 2","Semester 1"])
 
-folder_links_dict = get_files_links()
+folder_links_dict_s1 = get_subfiles_link(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES, FOLDER_ID_S1)
+folder_links_dict_s2= get_subfiles_link(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES, FOLDER_ID_S2)
 if semester=="Semester 1":
-    display_files_links(folder_links_dict)
+    display_files_links(folder_links_dict_s1)
+elif semester=="Semester 2":
+    display_files_links(folder_links_dict_s2)
 
 st.markdown("---")
 
