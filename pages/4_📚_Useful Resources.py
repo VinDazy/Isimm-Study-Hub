@@ -78,7 +78,6 @@ st.header("Teachers Emails 📧")
 
 import csv
 
-import csv
 
 def read_csv_to_dict(csv_file):
     teachers_dict = {}
