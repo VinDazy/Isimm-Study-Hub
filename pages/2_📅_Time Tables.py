@@ -19,7 +19,7 @@ with st.sidebar:
     semester=st.selectbox(label="Chose a Semester" ,options=["Semester 1","Semester 2"])
 tdGroups=["TD1","TD2","TD3","TD4","TD5"]
 group=st.selectbox("Please choose your TD group ",options=tdGroups)
-filePath=f"resources\\timeTables\\{semester}\\L3\\"+group+".png"
+filePath = f'resources/timeTables/{semester}/L3/{group}.png'
 image=st.image(image=filePath,use_column_width=True)
 st.toast(f" Displaying {group[:-1]+' '+group[-1]} Time Table",icon="🙌")
 
