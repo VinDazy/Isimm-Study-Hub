@@ -1,0 +1,99 @@
+[
+    {
+        "Unit": "D\u00e9veloppement d'applications r\u00e9parties + Mobile",
+        "Coefficient(Total)": 2.5,
+        "Credit(Total)": 5.0,
+        "Subjects": [
+            {
+                "Subject": "Developpement Application Reparties",
+                "Coefficient": 1.5,
+                "Credit": 3.0
+            },
+            {
+                "Subject": "Developpement Mobile",
+                "Coefficient": 1.0,
+                "Credit": 2.0
+            }
+        ]
+    },
+    {
+        "Unit": "Machine Learning + Securite Informatique",
+        "Coefficient(Total)": 2.0,
+        "Credit(Total)": 4.0,
+        "Subjects": [
+            {
+                "Subject": "Machine Learning",
+                "Coefficient": 1.0,
+                "Credit": 2.0
+            },
+            {
+                "Subject": "Securite Informatique",
+                "Coefficient": 1.0,
+                "Credit": 2.0
+            }
+        ]
+    },
+    {
+        "Unit": "Web Architecture SOA ",
+        "Coefficient(Total)": 2.0,
+        "Credit(Total)": 4.0,
+        "Subjects": [
+            {
+                "Subject": "Web Architecture SOA",
+                "Coefficient": 2.0,
+                "Credit": 4.0
+            }
+        ]
+    },
+    {
+        "Unit": "Virtualisation Cloud + Big Data",
+        "Coefficient(Total)": 2.5,
+        "Credit(Total)": 5.0,
+        "Subjects": [
+            {
+                "Subject": "Virtualisation Cloud",
+                "Coefficient": 1.5,
+                "Credit": 3.0
+            },
+            {
+                "Subject": "Framework Big Data",
+                "Coefficient": 1.0,
+                "Credit": 2.0
+            }
+        ]
+    },
+    {
+        "Unit": "Langue et culture",
+        "Coefficient(Total)": 2.0,
+        "Credit(Total)": 4.0,
+        "Subjects": [
+            {
+                "Subject": "Anglais 5",
+                "Coefficient": 1.0,
+                "Credit": 2.0
+            },
+            {
+                "Subject": "Pr\u00e9paration \u00e0 l'environement professionelle",
+                "Coefficient": 1.0,
+                "Credit": 2.0
+            }
+        ]
+    },
+    {
+        "Unit": "entreprise system + business process",
+        "Coefficient(Total)": 3.0,
+        "Credit(Total)": 6.0,
+        "Subjects": [
+            {
+                "Subject": "Entreprise Systeme Architecture",
+                "Coefficient": 1.5,
+                "Credit": 3.0
+            },
+            {
+                "Subject": "Business Process Engineering",
+                "Coefficient": 1.5,
+                "Credit": 3.0
+            }
+        ]
+    }
+]

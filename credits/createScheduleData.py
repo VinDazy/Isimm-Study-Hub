@@ -33,5 +33,5 @@ file_name=str(input("What do you want to call your JSON file ? "))
 
 with open(f"{file_name}.json", 'w') as file:
     json.dump(creds, file, indent=4)
-print("Filed saved successfully");
+print("Filed saved successfully")
 

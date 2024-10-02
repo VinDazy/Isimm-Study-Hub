@@ -15,68 +15,82 @@ img,bg=st.columns([0.2,0.8],gap="large")
 
 img.image("media/isimm logo/isimm logo _ 20.png", width=270)
 bg.image("media/banner.jpeg", use_column_width=True)
-semester_1,semester_2=st.columns(2)
-with open('credits/creds_sem_1.json', 'r') as file:
-    data = json.load(file)
-formatted_data = []
-for unit_data in data:
-    unit_name = unit_data['Unit']
-    coefficient_total = unit_data['Coefficient(Total)']
-    credit_total = unit_data['Credit(Total)']
+
+
+def getFormatedData(json_file):
+    with open(f'{json_file}', 'r') as file:
+        data = json.load(file)
+    formatted_data = []
+    for unit_data in data:
+        unit_name = unit_data['Unit']
+        coefficient_total = unit_data['Coefficient(Total)']
+        credit_total = unit_data['Credit(Total)']
+        
+        # Extracting subjects' details within the same unit
+        subject_names = "<br>".join([subject['Subject'] for subject in unit_data['Subjects']])
+        subject_coefficients = "<br>".join([str(subject['Coefficient']) for subject in unit_data['Subjects']])
+        subject_credits = "<br>".join([str(subject['Credit']) for subject in unit_data['Subjects']])
+        
+        formatted_data.append({
+            'Unit Name': unit_name,
+            'Unit Total Coefficient': coefficient_total,
+            'Unit Total Credit': credit_total,
+            'Subject Name': subject_names,
+            'Subject Coefficient': subject_coefficients,
+            'Subject Credit': subject_credits
+        })
+    return formatted_data
+
+with st.sidebar:
+
+    year = st.radio(
+        label="Choose Year : ", 
+        options=["L3", "L2"], 
+        index=0  # Default to L3 (first option)
+    )
     
-    # Extracting subjects' details within the same unit
-    subject_names = "<br>".join([subject['Subject'] for subject in unit_data['Subjects']])
-    subject_coefficients = "<br>".join([str(subject['Coefficient']) for subject in unit_data['Subjects']])
-    subject_credits = "<br>".join([str(subject['Credit']) for subject in unit_data['Subjects']])
-    
-    formatted_data.append({
-        'Unit Name': unit_name,
-        'Unit Total Coefficient': coefficient_total,
-        'Unit Total Credit': credit_total,
-        'Subject Name': subject_names,
-        'Subject Coefficient': subject_coefficients,
-        'Subject Credit': subject_credits
-    })
+l2_s1_df = pd.DataFrame(getFormatedData(json_file="credits\\creds_sem_1.json"))
+l2_s2_df = pd.DataFrame(getFormatedData(json_file="credits\\creds_sem_2.json"))
+l3_s1_df= pd.DataFrame(getFormatedData(json_file="credits\\creds_l3_s1.json"))
+l3_s2_df= pd.DataFrame(getFormatedData(json_file="credits\\creds_pfe.json"))
 
 
-df = pd.DataFrame(formatted_data)
 
-st.header("Semester 1 classes")
-st.write(df.to_markdown(index=False), unsafe_allow_html=True)
-st.write(" ")
-st.markdown("---")
-st.header("Semester 2 classes")
-with open('credits/creds_sem_2.json', 'r') as file:
-    data = json.load(file)
-formatted_data = []
-for unit_data in data:
-    unit_name = unit_data['Unit']
-    coefficient_total = unit_data['Coefficient(Total)']
-    credit_total = unit_data['Credit(Total)']
-    
-    # Extracting subjects' details within the same unit
-    subject_names = "<br>".join([subject['Subject'] for subject in unit_data['Subjects']])
-    subject_coefficients = "<br>".join([str(subject['Coefficient']) for subject in unit_data['Subjects']])
-    subject_credits = "<br>".join([str(subject['Credit']) for subject in unit_data['Subjects']])
-    
-    formatted_data.append({
-        'Unit Name': unit_name,
-        'Unit Total Coefficient': coefficient_total,
-        'Unit Total Credit': credit_total,
-        'Subject Name': subject_names,
-        'Subject Coefficient': subject_coefficients,
-        'Subject Credit': subject_credits
-    })
 
-new_df = pd.DataFrame(formatted_data)
 
-st.write(new_df.to_markdown(index=False), unsafe_allow_html=True)
+
+
+
+
+
+
+
 st.write("")
+
+if year == "L2":
+            st.header("Semester 1 classes")
+            st.write(l2_s1_df.to_markdown(index=False), unsafe_allow_html=True)
+            st.write(" ")
+            st.markdown("---")
+            st.header("Semester 2 classes")
+            st.write(l2_s2_df.to_markdown(index=False), unsafe_allow_html=True)
+else:
+            st.header("Semester 1 classes")
+            st.write(l3_s1_df.to_markdown(index=False), unsafe_allow_html=True)
+            st.write(" ")
+            st.markdown("---")
+            st.header("Semester 2 classes")
+            st.write(l3_s2_df.to_markdown(index=False), unsafe_allow_html=True)
+
+
+
+
+
 
 st.markdown("---")
 st.header("Teachers Emails 📧")
 
-import csv
+
 
 
 def read_csv_to_dict(csv_file):

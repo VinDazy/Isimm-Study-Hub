@@ -1,0 +1,14 @@
+[
+    {
+        "Unit": "PFE",
+        "Coefficient(Total)": 15.0,
+        "Credit(Total)": 30.0,
+        "Subjects": [
+            {
+                "Subject": "PFE : Projet Fin d'Etude",
+                "Coefficient": 15.0,
+                "Credit": 30.0
+            }
+        ]
+    }
+]

@@ -24,24 +24,58 @@ SCOPES=['https://www.googleapis.com/auth/drive']
 #OLD_FOLDER_ID="1DFwSgOYhRCXzfbgCTAnT3g_UMMCFqPml"
 FOLDER_ID_S1="1S6ezxU7F2bPP-wIvpFpn0sQOTZHx8pxC"
 FOLDER_ID_S2="1pAeirUeTlMT-xSe6MpY0oZAuF22CReX8"
+FOLDER_ID_L3_S1="1YCwGc0Y7HEpkWzvcqZQthYTqFXbooo5h"
+FOLDER_ID_L3_S2="1ANl2WIkAZT46hvU2p0P-XDk9kjecMOF5"
 
+# Generalized cached function
+# Generalized cached function for fetching links
 @st.cache_data
-def get_files_links_s1():
-    return get_subfiles_link(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES, FOLDER_ID_S1)
+def get_files_links(folder_id):
+    return get_subfiles_link(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES, folder_id)
 
-@st.cache_data
-def get_files_links_s2():
-    return get_subfiles_link(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES, FOLDER_ID_S2)
+# Fetch the cached data
+folder_links_dict_s1 = get_files_links(FOLDER_ID_S1)
+folder_links_dict_s2 = get_files_links(FOLDER_ID_S2)
+folder_links_dict_l3_s1 = get_files_links(FOLDER_ID_L3_S1)
+folder_links_dict_l3_s2 = get_files_links(FOLDER_ID_L3_S2)
 
 with st.sidebar:
-    semester=st.selectbox(label="Chose a Semester" ,options=["Semester 2","Semester 1"])
 
-folder_links_dict_s1 = get_subfiles_link(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES, FOLDER_ID_S1)
-folder_links_dict_s2= get_subfiles_link(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES, FOLDER_ID_S2)
-if semester=="Semester 1":
-    display_files_links(folder_links_dict_s1)
-elif semester=="Semester 2":
-    display_files_links(folder_links_dict_s2)
+    
+    # Radio buttons for selecting year
+    year = st.radio(
+        label="Choose Year : ", 
+        options=["L3", "L2"], 
+        index=0  # Default to L3 (first option)
+    )
+    
+    # Display semester options based on the selected year
+    if year == "L3":
+        semester = st.radio(
+            label="Choose Semester :", 
+            options=["Semester 1", "PFE Material"], 
+            index=0  # Default to Semester 1 (first option)
+        )
+    else:
+        semester = st.radio(
+            label="Choose Semester : ", 
+            options=["Semester 1", "Semester 2"]
+        )
+    
+
+
+if year == "L2":
+    if semester == "Semester 1":
+            display_files_links(folder_links_dict_s1)  # Display links for L2 Semester 1
+    else:
+            display_files_links(folder_links_dict_s2)  # Display links for L2 Semester 2
+else:
+            if semester =="Semester 1":
+                display_files_links(folder_links_dict_l3_s1)  # Display links for L3 Semester 1
+            else:
+                display_files_links(folder_links_dict_l3_s2)  # Display links for L3 Semester 2
+
+
 
 st.markdown("---")
 

@@ -17,6 +17,48 @@ img, bg = st.columns([0.2, 0.8], gap="large")
 img.image("media/isimm logo/isimm logo _ 20.png", width=270)
 bg.image("media/banner.jpeg", use_column_width=True)
 st.markdown("----")
+
+
+
+
+# Function to load ratings from JSON file
+def load_ratings():
+    if os.path.exists('credits\\ratings.json'):
+        with open('credits\\ratings.json', 'r') as file:
+            return json.load(file)
+    else:
+        return {"1": 0, "2": 0, "3": 0, "4": 0, "5": 0}
+
+# Function to save ratings to JSON file
+def save_ratings(ratings):
+    with open('credits\\ratings.json', 'w') as file:
+        json.dump(ratings, file)
+
+# Function to calculate total number of ratings and average rating
+def calculate_rating_info(ratings):
+    total_ratings = sum(ratings.values())
+    weighted_sum = sum(int(key) * value for key, value in ratings.items())
+    
+    average_rating = weighted_sum / total_ratings if total_ratings > 0 else 0
+    return total_ratings, average_rating
+
+
+ratings = load_ratings()
+
+#total_ratings, average_rating = calculate_rating_info(ratings)
+
+with st.sidebar:
+    st.header("Don't forget to leave feedback 😁")
+    
+    # Use st.select_slider to select feedback (star rating)
+    selected = st.select_slider(label="", options=["1", "2", "3", "4", "5"], help="Help me gain insights on your experience by leaving a review .",value=None)  
+    # Track if the user has provided feedback
+    if selected is not None and selected != "1":  
+        feedback = selected  
+        ratings[feedback] += 1  #
+        save_ratings(ratings)  
+        st.markdown("Thank you for leaving feedback 💙")
+
 #quote_column,announcement_column=st.columns(2)
 st.subheader("🔔 Quote of the day 🔔 ")
 @st.cache_data
