@@ -49,10 +49,10 @@ with st.sidebar:
         index=0  # Default to L3 (first option)
     )
     
-l2_s1_df = pd.DataFrame(getFormatedData(json_file="credits\\creds_sem_1.json"))
-l2_s2_df = pd.DataFrame(getFormatedData(json_file="credits\\creds_sem_2.json"))
-l3_s1_df= pd.DataFrame(getFormatedData(json_file="credits\\creds_l3_s1.json"))
-l3_s2_df= pd.DataFrame(getFormatedData(json_file="credits\\creds_pfe.json"))
+l2_s1_df = pd.DataFrame(getFormatedData(json_file="credits/creds_sem_1.json"))
+l2_s2_df = pd.DataFrame(getFormatedData(json_file="credits/creds_sem_2.json"))
+l3_s1_df= pd.DataFrame(getFormatedData(json_file="credits/creds_l3_s1.json"))
+l3_s2_df= pd.DataFrame(getFormatedData(json_file="credits/creds_pfe.json"))
 
 
 
