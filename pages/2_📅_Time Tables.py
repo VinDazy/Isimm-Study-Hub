@@ -16,10 +16,10 @@ img,bg=st.columns([0.2,0.8],gap="large")
 img.image("media/isimm logo/isimm logo _ 20.png", width=270)
 bg.image("media/banner.jpeg", use_column_width=True)
 with st.sidebar:
-    semester=st.selectbox(label="Chose a Semester" ,options=["Semester 2","Semester 1"])
+    semester=st.selectbox(label="Chose a Semester" ,options=["Semester 1","Semester 2"])
 tdGroups=["TD1","TD2","TD3","TD4","TD5"]
 group=st.selectbox("Please choose your TD group ",options=tdGroups)
-filePath=f"resources/timeTables/L3{semester}/"+group+".png"
+filePath=f"resources\\timeTables\\{semester}\\L3\\"+group+".png"
 image=st.image(image=filePath,use_column_width=True)
 st.toast(f" Displaying {group[:-1]+' '+group[-1]} Time Table",icon="🙌")
 
