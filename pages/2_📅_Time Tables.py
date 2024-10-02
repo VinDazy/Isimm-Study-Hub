@@ -1,7 +1,7 @@
 from streamlit_extras.switch_page_button import switch_page
 import streamlit as st
 from functions import *
-import time
+
 st.set_page_config(page_title='ISIMM Study Hub',page_icon='media/isimm logo/isimm logo.jpg',layout='wide')
 hide_streamlit_style = """
             <style>
@@ -19,7 +19,7 @@ with st.sidebar:
     semester=st.selectbox(label="Chose a Semester" ,options=["Semester 2","Semester 1"])
 tdGroups=["TD1","TD2","TD3","TD4","TD5"]
 group=st.selectbox("Please choose your TD group ",options=tdGroups)
-filePath=f"resources/timeTables/{semester}/"+group+".png"
+filePath=f"resources/timeTables/L3{semester}/"+group+".png"
 image=st.image(image=filePath,use_column_width=True)
 st.toast(f" Displaying {group[:-1]+' '+group[-1]} Time Table",icon="🙌")
 
