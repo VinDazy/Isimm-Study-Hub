@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd 
 import json
 import csv 
+import os 
+import re 
 from streamlit_extras.switch_page_button import switch_page
 st.set_page_config(page_title='ISIMM Study Hub',page_icon='media/isimm logo/isimm logo.jpg',layout='wide')
 hide_streamlit_style = """
@@ -15,6 +17,9 @@ img,bg=st.columns([0.2,0.8],gap="large")
 
 img.image("media/isimm logo/isimm logo _ 20.png", width=270)
 bg.image("media/banner.jpeg", use_column_width=True)
+def validateEmail(email):
+     regex = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+     return re.match(regex, email) is not None
 
 
 def getFormatedData(json_file):
@@ -113,7 +118,52 @@ def read_csv_to_dict(csv_file):
 
     return teachers_dict
 
+if 'name' not in st.session_state:
+    st.session_state['name'] = ""
+if 'email' not in st.session_state:
+    st.session_state['email'] = ""
 
+with st.sidebar:
+    st.header("Add a Teacher's Email")
+    
+    # Use session_state to maintain inputs
+    name = st.text_input("Teacher's Name", value=st.session_state['name'])
+    email = st.text_input("Teacher's Email", value=st.session_state['email'])
+    button=st.button("Add Teacher")
+
+    # Email validation
+    if not validateEmail(email) and email:
+        st.error("Invalid email format!")
+    else:
+        # Button to add teacher
+        if button:
+            if validateEmail(email):
+                data = {"Teacher Name": name, "Teacher Email": email}
+                file_path = "resources/waitList.csv"
+
+                # Check if the file exists to avoid rewriting the header every time
+                file_exists = os.path.exists(file_path)
+                df=pd.read_csv("resources/waitList.csv")
+                if email in df.values:
+                     st.error("Teacher's email already exists in the Wait List!")
+                else:
+                    with open(file_path, mode="a", newline="") as csvfile:
+                        fieldnames = ["Teacher Name", "Teacher Email"]
+                        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+                        if not file_exists:
+                            writer.writeheader()
+                        writer.writerow(data)  # Write a single row of data
+                        st.success("Teacher's email added to Wait List successfully!")
+
+                        # Clear input fields by resetting session_state
+                        st.session_state['name'] = ""
+                        st.session_state['email'] = ""
+            else:
+                st.error("Please provide a valid email address.")
+
+               
+               
 
 # Example usage:
 file_path = 'resources/teachersEmails.csv'  
