@@ -42,7 +42,6 @@ folder_links_dict_l3_s2 = get_files_links(FOLDER_ID_L3_S2)
 with st.sidebar:
 
     
-    # Radio buttons for selecting year
     year = st.radio(
         label="Choose Year : ", 
         options=["L3", "L2"], 

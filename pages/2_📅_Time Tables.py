@@ -49,8 +49,11 @@ else:
      tdGroups=["TD1","TD2","TD3","TD4"]
 
 group=st.selectbox("Please choose your TD group ",options=tdGroups)
-filePath = f'resources/timeTables/{semester}/{year}/{group}.png'
-image=st.image(image=filePath,use_column_width=True)
+try:
+    filePath = f'resources/timeTables/{semester}/{year}/{group}.png'
+    image=st.image(image=filePath,use_column_width=True)
+except Exception as e:
+    st.error(f"No timeTable found for the selected Group {year}/{group}")
 st.toast(f" Displaying {group[:-1]+' '+group[-1]} Time Table",icon="🙌")
 
 col1,col2,col3,col4,col5=st.columns(5)
