@@ -15,11 +15,41 @@ img,bg=st.columns([0.2,0.8],gap="large")
 
 img.image("media/isimm logo/isimm logo _ 20.png", width=270)
 bg.image("media/banner.jpeg", use_column_width=True)
+
+
+
+
+
 with st.sidebar:
-    semester=st.selectbox(label="Chose a Semester" ,options=["Semester 1","Semester 2"])
-tdGroups=["TD1","TD2","TD3","TD4","TD5"]
+
+    
+    # Radio buttons for selecting year
+    year = st.radio(
+        label="Choose Year : ", 
+        options=["L3", "L2"], 
+        index=0  # Default to L3 (first option)
+    )
+    
+    # Display semester options based on the selected year
+    if year == "L3":
+        semester = st.radio(
+            label="Choose Semester :", 
+            options=["Semester 1"], 
+            index=0  # Default to Semester 1 (first option)
+        )
+    else:
+        semester = st.radio(
+            label="Choose Semester : ", 
+            options=["Semester 1", "Semester 2"]
+        )
+    
+if year =="L3":               
+    tdGroups=["TD1","TD2","TD3","TD4","TD5"]
+else:
+     tdGroups=["TD1","TD2","TD3","TD4"]
+
 group=st.selectbox("Please choose your TD group ",options=tdGroups)
-filePath = f'resources/timeTables/{semester}/L3/{group}.png'
+filePath = f'resources/timeTables/{semester}/{year}/{group}.png'
 image=st.image(image=filePath,use_column_width=True)
 st.toast(f" Displaying {group[:-1]+' '+group[-1]} Time Table",icon="🙌")
 
