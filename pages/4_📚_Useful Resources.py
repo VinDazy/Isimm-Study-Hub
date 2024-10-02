@@ -135,7 +135,7 @@ with st.sidebar:
     if not validateEmail(email) and email:
         st.error("Invalid email format!")
     else:
-        # Button to add teacher
+
         if button:
             if validateEmail(email):
                 data = {"Teacher Name": name, "Teacher Email": email}
