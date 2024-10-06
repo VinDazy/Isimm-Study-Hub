@@ -45,16 +45,15 @@ def calculate_rating_info(ratings):
 
 ratings = load_ratings()
 
-#total_ratings, average_rating = calculate_rating_info(ratings)
+
 
 with st.sidebar:
-    st.header("Don't forget to leave feedback 😁")
-    
-    # Use st.select_slider to select feedback (star rating)
-    selected = st.select_slider(label="", options=["1", "2", "3", "4", "5"], help="Help me gain insights on your experience by leaving a review .",value=None)  
-    # Track if the user has provided feedback
-    if selected is not None and selected != "1":  
-        feedback = selected  
+
+    st.header("Don't forget to leave feedback 😁",help="Help me improve your experience by submitting feedback.")
+    sentiment_mapping = ["1", "2", "3", "4", "5"]
+    selected = st.feedback("stars")
+    if selected is not None:
+        feedback = sentiment_mapping[selected]  
         ratings[feedback] += 1  #
         save_ratings(ratings)  
         st.markdown("Thank you for leaving feedback 💙")
