@@ -25,28 +25,35 @@ def Create_Service(client_secret_file, api_name, api_version, *scopes):
     cred = None
 
     pickle_file = f'token_{API_SERVICE_NAME}_{API_VERSION}.pickle'
-    # print(pickle_file)
 
+    # Load existing credentials from the pickle file if it exists
     if os.path.exists(pickle_file):
         with open(pickle_file, 'rb') as token:
             cred = pickle.load(token)
 
+    # If no valid credentials, either refresh or request new authorization
     if not cred or not cred.valid:
         if cred and cred.expired and cred.refresh_token:
+            print("Refreshing token...")
             cred.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRET_FILE, SCOPES)
+            print("Requesting new authorization...")
+            flow = InstalledAppFlow.from_client_secrets_file(
+                CLIENT_SECRET_FILE, SCOPES, access_type='offline'
+            )
             cred = flow.run_local_server()
 
+        # Save the credentials back to the pickle file for future use
         with open(pickle_file, 'wb') as token:
             pickle.dump(cred, token)
 
     try:
+        # Build the Google API service
         service = build(API_SERVICE_NAME, API_VERSION, credentials=cred)
-        print(API_SERVICE_NAME, 'service created successfully')
+        print(f"{API_SERVICE_NAME} service created successfully")
         return service
     except Exception as e:
-        print('Unable to connect.')
+        print("Unable to connect.")
         print(e)
         return None
 
