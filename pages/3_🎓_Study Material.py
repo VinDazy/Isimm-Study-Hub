@@ -100,6 +100,12 @@ else:
         # Display links for L3 Semester 1
         display_files_links(folder_links_dict_l3_s1)
     else:
+        st.subheader("Useful Websites")
+        container=st.container(border=True)
+        container.write("https://hi-interns.com/internships")
+        container.info("Hi Interns is a Tunisian startup specializing in employment technology, which connects interns with companies.",icon="🔔")
+        st.divider()
+
 
         st.markdown("""
             <style>
