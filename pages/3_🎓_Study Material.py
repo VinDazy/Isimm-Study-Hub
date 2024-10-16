@@ -101,9 +101,12 @@ else:
         display_files_links(folder_links_dict_l3_s1)
     else:
         st.subheader("Useful Websites")
-        container=st.container(border=True)
-        container.write("https://hi-interns.com/internships")
-        container.info("Hi Interns is a Tunisian startup specializing in employment technology, which connects interns with companies.",icon="🔔")
+        hi_interns_container=st.container(border=True)
+        hi_interns_container.write("https://hi-interns.com/internships")
+        hi_interns_container.info("Hi Interns is a Tunisian startup specializing in employment technology, which connects interns with companies.",icon="🔔")
+        t3alem_container=st.container(border=True)
+        t3alem_container.write("https://t3alem.tn/internships")
+        t3alem_container.info(" Stage PFE موقع تونسي مجاني يوفر دروس بالدارجة التونسية في برشا مجالات. تنجم حتا تلقا فيه  ",icon="🔔")
         st.divider()
 
 
