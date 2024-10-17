@@ -2,7 +2,7 @@ import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 from functions import *
 from streamlit_extras.stylable_container import stylable_container 
-
+from datetime import datetime,timedelta
 st.set_page_config(page_title='ISIMM Study Hub',
                    page_icon='media/isimm logo/isimm logo.jpg', layout='wide')
 hide_streamlit_style = """
@@ -92,6 +92,9 @@ st.subheader("📢 Announcements 📢")
 announcements_per_row = 4
 num_announcements = len(announcements_dict)
 num_rows = -(-num_announcements // announcements_per_row)
+current_date = datetime.now()
+formatted_date = current_date.strftime("%d/%m/%Y")
+today_date = datetime.strptime(formatted_date, "%d/%m/%Y")
 
 for i in range(num_rows):
     columns = st.columns(announcements_per_row)
@@ -100,6 +103,13 @@ for i in range(num_rows):
     
     for j, announcement_idx in enumerate(range(start, end)):
         announcement = announcements_dict[announcement_idx]
+
+        announcement_date=announcement['announcement_date']
+        original_date = datetime.strptime(announcement_date, "%d/%m/%Y")
+        expiration_period_days = 30
+        new_date = original_date + timedelta(days=expiration_period_days)
+        if new_date < today_date:
+            continue
         with columns[j]:
             with stylable_container(
         key="container_with_border",
