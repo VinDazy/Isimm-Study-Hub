@@ -79,7 +79,27 @@ with quote_container:
         unsafe_allow_html=True,
         )
 st.markdown("----")
-st.subheader("📢 Announcements 📢")
+st.subheader("🔨 Latest Additions 🔨")
+col1,col2,col3=st.columns(3)
+container=col1.container(border=True)
+container.write("Added t3allem website to PFE Resources ✨")
+btn=container.button(key="btn1",label="Check it out here",use_container_width=False)
+
+if btn:
+    switch_page("study material")
+container=col2.container(border=True)
+container.write("Added Hi-Interns website to PFE Resources ✨")
+btn=container.button(key="btn2",label="Check it out here")
+if btn:
+    switch_page("study material")
+
+
+
+
+
+
+st.markdown("----")
+st.subheader("📢ISIMM Announcements 📢")
 
 # Number of announcements per row
 
