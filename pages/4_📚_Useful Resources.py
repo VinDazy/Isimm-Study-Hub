@@ -123,7 +123,8 @@ cred = credentials.Certificate(services_data)
 
 try:
     firebase_admin.get_app('ISIMM Study Hub')
-except ValueError:
+except Exception as e :
+    st.write(e)
     app = firebase_admin.initialize_app(cred, storage_bucket, name='ISIMM Study Hub')
 teachers_waitlist = firestore.client().collection("teacherWaitList")
 docs = teachers_waitlist.stream()
