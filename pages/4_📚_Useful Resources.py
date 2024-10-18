@@ -2,9 +2,11 @@ import streamlit as st
 import pandas as pd
 import json
 import csv
-import os
+import random
 import re
 from streamlit_extras.switch_page_button import switch_page
+import firebase_admin
+from firebase_admin import credentials , firestore
 st.set_page_config(page_title='ISIMM Study Hub',
                    page_icon='media/isimm logo/isimm logo.jpg', layout='wide')
 hide_streamlit_style = """
@@ -21,7 +23,7 @@ bg.image("media/banner.jpeg", use_column_width=True)
 
 
 def validateEmail(email):
-    regex = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    regex = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}'
     return re.match(regex, email) is not None
 
 
@@ -116,8 +118,20 @@ if 'name' not in st.session_state:
 if 'email' not in st.session_state:
     st.session_state['email'] = ""
 
+services_data=json.loads(st.secrets["json_data"]["services_data"])
+storage_bucket = json.loads(st.secrets["storage"]["storage_bucket"])
+cred = credentials.Certificate(services_data)
+
+try:
+    firebase_admin.get_app('ISIMM Study Hub')
+except ValueError:
+    app = firebase_admin.initialize_app(cred, storage_bucket, name='ISIMM Study Hub')
+teachers_waitlist = firestore.client().collection("teacherWaitList")
+docs = teachers_waitlist.stream()
+
+
 with st.sidebar:
-    st.header("Add a Teacher's Email")
+    st.header("Add Teachers Email 📧")
 
     # Use session_state to maintain inputs
     name = st.text_input("Teacher's Name", value=st.session_state['name'])
@@ -128,31 +142,28 @@ with st.sidebar:
     if not validateEmail(email) and email:
         st.error("Invalid email format!")
     else:
-
         if button:
             if validateEmail(email):
-                data = {"Teacher Name": name, "Teacher Email": email}
-                file_path = "resources/waitList.csv"
+                try:
+                    latest_id = 0
+                    for doc in docs:
+                        latest_id = int(doc.id) 
+                    new_id = latest_id + 1
+                    row = {
+                        "teacherEmail": email,
+                        "teacherFullName": name,
+                        "Validated": False
+                    }
+                    teachers_waitlist.document(str(new_id)).set(row)
+                    st.success("Teacher added successfully!")
 
-                # Check if the file exists to avoid rewriting the header every time
-                file_exists = os.path.exists(file_path)
-                df = pd.read_csv("resources/waitList.csv")
-                if email in df.values:
-                    st.error("Teacher's email already exists in the Wait List!")
-                else:
-                    with open(file_path, mode="a", newline="") as csvfile:
-                        fieldnames = ["Teacher Name", "Teacher Email"]
-                        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-
-                        if not file_exists:
-                            writer.writeheader()
-                        writer.writerow(data)  # Write a single row of data
-                        st.success(
-                            "Teacher's email added to Wait List successfully!")
-
-                        # Clear input fields by resetting session_state
-                        st.session_state['name'] = ""
-                        st.session_state['email'] = ""
+                    # Clear input fields in session state
+                    st.session_state['name'] = ""
+                    st.session_state['email'] = ""
+                    # Optionally, reset the text inputs directly
+                    st.experimental_rerun()  # This refreshes the app to clear inputs
+                except Exception as e:
+                    st.error("Error adding teacher: " + str(e))
             else:
                 st.error("Please provide a valid email address.")
 
