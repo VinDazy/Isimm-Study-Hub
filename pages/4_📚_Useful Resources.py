@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import json
 import csv
-import random
 import re
 from streamlit_extras.switch_page_button import switch_page
 import firebase_admin
