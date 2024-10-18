@@ -155,12 +155,9 @@ with st.sidebar:
                     }
                     teachers_waitlist.document(str(new_id)).set(row)
                     st.success("Teacher added successfully!")
-
-                    # Clear input fields in session state
                     st.session_state['name'] = ""
                     st.session_state['email'] = ""
-                    # Optionally, reset the text inputs directly
-                    st.experimental_rerun()  # This refreshes the app to clear inputs
+                    
                 except Exception as e:
                     st.error("Error adding teacher: " + str(e))
             else:
