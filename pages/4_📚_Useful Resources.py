@@ -122,10 +122,11 @@ storage_bucket = json.loads(st.secrets["storage"]["storage_bucket"])
 cred = credentials.Certificate(services_data)
 
 try:
-    firebase_admin.get_app('ISIMM Study Hub')
+    app = firebase_admin.initialize_app(cred, storage_bucket, name='ISIMM Study Hub')
+    
 except Exception as e :
     st.write(e)
-    app = firebase_admin.initialize_app(cred, storage_bucket, name='ISIMM Study Hub')
+    firebase_admin.get_app('ISIMM Study Hub')
 teachers_waitlist = firestore.client().collection("teacherWaitList")
 docs = teachers_waitlist.stream()
 
