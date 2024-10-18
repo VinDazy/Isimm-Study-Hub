@@ -122,7 +122,8 @@ storage_bucket = json.loads(st.secrets["storage"]["storage_bucket"])
 cred = credentials.Certificate(services_data)
 
 
-app = firebase_admin.initialize_app(cred, storage_bucket)
+if not firebase_admin._apps:  
+    app = firebase_admin.initialize_app(cred, storage_bucket)
 
 teachers_waitlist = firestore.client().collection("teacherWaitList")
 docs = teachers_waitlist.stream()
