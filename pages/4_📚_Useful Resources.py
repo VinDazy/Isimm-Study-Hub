@@ -126,7 +126,7 @@ try:
     
 except Exception as e :
     st.write(e)
-    firebase_admin.get_app("ISIMM_Study_Hub")
+    firebase_admin.get_app("isimm-study-hub")
 teachers_waitlist = firestore.client().collection("teacherWaitList")
 docs = teachers_waitlist.stream()
 
