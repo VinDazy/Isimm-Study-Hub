@@ -19,17 +19,75 @@ img, bg = st.columns([0.2, 0.8], gap="large")
 
 img.image("media/isimm logo/isimm logo _ 20.png", width=270)
 bg.image("media/banner.jpeg", use_column_width=True)
+def getFormatedData(json_file):
+    with open(f'{json_file}', 'r') as file:
+        data = json.load(file)
+    formatted_data = []
+    for unit_data in data:
+        unit_name = unit_data['Unit']
+        coefficient_total = unit_data['Coefficient(Total)']
+        credit_total = unit_data['Credit(Total)']
+        
+        # Extracting subjects' details within the same unit
+        subject_names = "<br>".join([subject['Subject'] for subject in unit_data['Subjects']])
+        subject_coefficients = "<br>".join([str(subject['Coefficient']) for subject in unit_data['Subjects']])
+        subject_credits = "<br>".join([str(subject['Credit']) for subject in unit_data['Subjects']])
+        
+        formatted_data.append({
+            'Unit Name': unit_name,
+            'Unit Total Coefficient': coefficient_total,
+            'Unit Total Credit': credit_total,
+            'Subject Name': subject_names,
+            'Subject Coefficient': subject_coefficients,
+            'Subject Credit': subject_credits
+        })
+    return formatted_data
+with st.sidebar:
 
+    year = st.radio(
+        label="Choose Year : ",
+        options=["L3", "L2"],
+        index=0  # Default to L3 (first option)
+    )
+
+l2_s1_df = pd.DataFrame(getFormatedData(json_file="credits/creds_sem_1.json"))
+l2_s2_df = pd.DataFrame(getFormatedData(json_file="credits/creds_sem_2.json"))
+l3_s1_df = pd.DataFrame(getFormatedData(json_file="credits/creds_l3_s1.json"))
+l3_s2_df = pd.DataFrame(getFormatedData(json_file="credits/creds_pfe.json"))
+
+
+st.write("")
+
+if year == "L2":
+    st.header("Semester 1 classes")
+    st.write(l2_s1_df.to_markdown(index=False), unsafe_allow_html=True)
+    st.write(" ")
+    st.markdown("---")
+    st.header("Semester 2 classes")
+    st.write(l2_s2_df.to_markdown(index=False), unsafe_allow_html=True)
+else:
+    st.header("Semester 1 classes")
+    st.write(l3_s1_df.to_markdown(index=False), unsafe_allow_html=True)
+    st.write(" ")
+    st.markdown("---")
+    st.header("Semester 2 classes")
+    st.write(l3_s2_df.to_markdown(index=False), unsafe_allow_html=True)
+
+
+st.markdown("---")
+st.header("Teachers Emails 📧")
 
 def validateEmail(email):
     regex = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}'
     return re.match(regex, email) is not None
 
 
+@st.cache_data()
 def get_email_docs():
     teachers_emailList = firestore.client().collection("teacherEmailList")
     emailDocs = teachers_emailList.stream()
-    return emailDocs
+    data = [doc.to_dict() for doc in emailDocs]
+    return data  
 
 
 services_data = json.loads(st.secrets["json_data"]["services_data"])
@@ -85,12 +143,7 @@ with st.sidebar:
 
 emailDocs = get_email_docs()
 
-data = []
-for doc in emailDocs:
-    row = doc.to_dict()
-    data.append(row)
-
-df = pd.DataFrame(data)
+df = pd.DataFrame(emailDocs)
 df=df.drop("Approved",axis=1)
 st.table(df)
 
