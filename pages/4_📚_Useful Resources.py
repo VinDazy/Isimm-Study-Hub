@@ -47,7 +47,7 @@ with st.sidebar:
     year = st.radio(
         label="Choose Year : ",
         options=["L3", "L2"],
-        index=0  # Default to L3 (first option)
+        index=0  
     )
 
 l2_s1_df = pd.DataFrame(getFormatedData(json_file="credits/creds_sem_1.json"))
