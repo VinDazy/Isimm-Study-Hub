@@ -156,9 +156,9 @@ subjectResources, schedule, subject_info = st.columns(3)
 # Container for Subject Resources
 with subjectResources:
     st.image("media/menu/info.png")
-    resources_button = st.button("Check Course Materials",use_container_width=True)
+    resources_button = st.button("Check Study Materials",use_container_width=True)
     if resources_button:
-        switch_page("subjects")
+        switch_page("Study Material")
 
 # Container for Schedule
 with schedule:
