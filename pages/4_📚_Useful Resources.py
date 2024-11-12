@@ -144,7 +144,7 @@ with st.sidebar:
 emailDocs = get_email_docs()
 
 df = pd.DataFrame(emailDocs)
-df=df.drop("Approved",axis=1)
+df=df.drop("Validated",axis=1)
 st.table(df)
 
 st.markdown("---")
