@@ -142,9 +142,10 @@ with st.sidebar:
                 st.error("Please provide a valid email address.")
 
 emailDocs = get_email_docs()
-
 df = pd.DataFrame(emailDocs)
-df=df.drop("Validated",axis=1)
+df=df.drop(columns=["Approved","Validated"],axis=1)
+
+
 st.table(df)
 
 st.markdown("---")
