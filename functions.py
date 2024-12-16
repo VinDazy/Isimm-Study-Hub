@@ -356,3 +356,24 @@ def display_files_links(data_dict):
                     with expander:
                         for file_name, file_link in links['file_links']:
                             st.write(f"- [{file_name}]({file_link})")
+
+
+def display_files_pfe(folder_links_dict_l3_s2,target_column):
+
+        num_columns = 4  
+        folder_count = len(folder_links_dict_l3_s2)
+        rows = (folder_count + num_columns - 1) // num_columns  
+
+        file_data = list(folder_links_dict_l3_s2.items())  
+
+        for row in range(rows):
+            columns = target_column.columns(num_columns) 
+            for col_idx, col in enumerate(columns):
+                folder_index = row * num_columns + col_idx
+                if folder_index < folder_count:  
+                    filename, folder_data = file_data[folder_index]
+                    link = folder_data.get("folder_link", "File URL not Found")
+                    with col:  
+                        container=col.container(border=True)
+                        container.write(filename)
+                        container.write(link)

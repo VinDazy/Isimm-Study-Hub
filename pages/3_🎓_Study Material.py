@@ -100,13 +100,19 @@ else:
         # Display links for L3 Semester 1
         display_files_links(folder_links_dict_l3_s1)
     else:
-        st.subheader("Useful Websites")
-        hi_interns_container=st.container(border=True)
+        useful_websites, files=st.columns(2)
+
+
+        useful_websites.subheader("Useful Websites 🌐")
+        hi_interns_container=useful_websites.container(border=True)
         hi_interns_container.write("https://hi-interns.com/internships")
         hi_interns_container.info("Hi Interns is a Tunisian startup specializing in employment technology, which connects interns with companies.",icon="🔔")
-        t3alem_container=st.container(border=True)
+        t3alem_container=useful_websites.container(border=True)
         t3alem_container.write("https://t3alem.tn/internships")
         t3alem_container.info(" Stage PFE موقع تونسي مجاني يوفر دروس بالدارجة التونسية في برشا مجالات. تنجم حتا تلقا فيه  ",icon="🔔")
+        files.subheader("Useful Files 📁")
+        display_files_pfe(folder_links_dict_l3_s2=folder_links_dict_l3_s2,target_column=files)
+
         st.divider()
 
 
