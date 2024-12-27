@@ -145,10 +145,33 @@ emailDocs = get_email_docs()
 df = pd.DataFrame(emailDocs)
 df=df.drop(columns=["Approved","Validated"],axis=1)
 
+rows_per_page = 20
 
-st.table(df)
+
+if not df.empty:
+    total_pages = (len(df) + rows_per_page - 1) // rows_per_page
+else:
+    total_pages = 1
+
+page = st.number_input(
+    "Select Page:",
+    min_value=1,
+    max_value=total_pages,
+    value=1,
+    step=1,
+    key="email_list_page",label_visibility="visible"
+)
+
+start_idx = (page - 1) * rows_per_page
+end_idx = start_idx + rows_per_page
+paginated_df = df.iloc[start_idx:end_idx]
+
+st.table(paginated_df)
+
+
 
 st.markdown("---")
+
 col1, col2, col3, col4, col5 = st.columns(5)
 
 return_home = col3.button("🏠Return Home")
