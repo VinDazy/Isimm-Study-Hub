@@ -99,9 +99,29 @@ if not firebase_admin._apps:
 
 teachers_waitlist = firestore.client().collection("teacherWaitList")
 
+emailDocs = get_email_docs()
+df = pd.DataFrame(emailDocs)
+df=df.drop(columns=["Approved","Validated"],axis=1)
 
 
 with st.sidebar:
+    st.write("---")
+    st.header("Search Teachers Email 🔍")
+    name = st.text_input(label="Enter a teacher's name")
+    search = st.button("Search")
+    if search:
+        result = df[df["teacherFullName"].str.contains(name, case=False, na=False)]
+        if not result.empty:
+            st.write("### Results")
+            emails = result["teacherEmail"].tolist()
+            for email in emails:
+                st.markdown(f"- {email}")
+        else:
+            st.error("Oops, no result found 😔.")
+
+with st.sidebar:
+    st.write("---")
+    
     st.header("Add Teachers Email 📧")
 
     # Use session_state to maintain inputs
@@ -140,10 +160,9 @@ with st.sidebar:
                     st.error("Error adding teacher: " + str(e))
             else:
                 st.error("Please provide a valid email address.")
+    
 
-emailDocs = get_email_docs()
-df = pd.DataFrame(emailDocs)
-df=df.drop(columns=["Approved","Validated"],axis=1)
+
 
 rows_per_page = 20
 
@@ -152,6 +171,11 @@ if not df.empty:
     total_pages = (len(df) + rows_per_page - 1) // rows_per_page
 else:
     total_pages = 1
+
+left_column,middle_column,right_column=st.columns(3)
+
+
+
 
 page = st.number_input(
     "Select Page:",
